@@ -4,7 +4,11 @@ import DayList from "./DayList";
 import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -14,15 +18,35 @@ export default function Application(props) {
     interviewers: {},
   });
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    setState({
+      ...state,
+      appointments,
+    });
+  }
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const schedule = dailyAppointments.map((appointment) => (
-    <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={appointment.interview}
-    />
-  ));
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={dailyInterviewers}
+      />
+    );
+  });
 
   const setDay = (day) => setState({ ...state, day });
 
@@ -32,6 +56,7 @@ export default function Application(props) {
       axios.get("http://localhost:8001/api/appointments"),
       axios.get("http://localhost:8001/api/interviewers"),
     ]).then((all) => {
+      console.log(all);
       setState((prev) => ({
         ...prev,
         days: all[0].data,
@@ -40,7 +65,6 @@ export default function Application(props) {
       }));
     });
   }, []);
-  // console.log(state.interviewers);
 
   return (
     <main className="layout">
