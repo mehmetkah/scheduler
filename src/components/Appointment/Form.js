@@ -7,10 +7,6 @@ function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
-  // useEffect(() => {
-  //   getInterviewersForDay();
-  // }, []);
-
   function reset() {
     setStudent("");
     setInterviewer(null);
