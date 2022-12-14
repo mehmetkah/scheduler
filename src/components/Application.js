@@ -1,7 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import DayList from "./DayList";
-import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import useApplicationData from "hooks/useApplicationData";

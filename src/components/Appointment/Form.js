@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
-import { getInterviewersForDay } from "helpers/selectors";
+
 function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -16,7 +16,6 @@ function Form(props) {
     reset();
     props.onCancel();
   }
-  console.log(props, "ss");
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
