@@ -45,7 +45,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}></Header>
       {mode === EMPTY && (
         <Empty
