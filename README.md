@@ -20,6 +20,6 @@ npm run storybook
 
 ## ScreenShots
 
-![text](ss1)
-![text](ss3)
-![text](ss2)
+![text](public/images/ss1.png)
+![text](public/images/ss2.png)
+![text](public/images/ss3.png)
